@@ -132,6 +132,7 @@ const DAYS = [
  {date:'2026-11-29', sum:`Journée libre · départ`, items:[
    {t:`Journée`, txt:`Journée libre`, free:true},
    {t:`Heure à confirmer`, txt:`Départ pour l'aéroport`, place:`Navette de l'université`, who:`Li Yameng`, n:'airport'} ]},
+];
 
 /* ============ 3. Notice 详情（有 zh 字段才显示「请出示给司机」卡片）============ */
 const NOTICES = {
@@ -154,7 +155,8 @@ const NOTICES = {
    <li>Tour du Tambour, puis promenade dans les hutongs et autour du lac Houhai</li></ol>`,
    zh:`请送我到 朱辛庄地铁站`},
  wall:{title:`Grande Muraille`, html:`<p>Trajet en taxi avec Hu Qing et Rémy. Prévoyez des chaussures de marche, des vêtements chauds (vent, 0–5 °C) et votre <b>passeport</b>.</p>`, zh:`长城（具体段落待定）`},
- airport:{title:`Départ`, html:`<p>Une navette de l'université vous conduira à l'aéroport. L'heure de départ sera confirmée par Li Yameng. N'oubliez pas votre passeport.</p>`},
+ airport:{title:`Départ`, html:`<p>Une navette ... N'oubliez pas votre passeport.</p>`},
+};
 
 /* ============ 以下为程序逻辑，一般无需修改 ============ */
 const TZ='Asia/Shanghai', $=s=>document.querySelector(s);
