@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#ffffff">
+<title>Pékin · M. Grossmann</title>
+<style>
+:root{--blue:#1f4e8c;--red:#c0392b;--bg:#f3f5f9;--line:#dfe5ee;--text:#1d2633;--muted:#5b6b80}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,"Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--text);padding-bottom:110px}
+header{position:sticky;top:0;z-index:10;background:#fff;padding:calc(env(safe-area-inset-top) + 14px) 20px 14px;display:flex;align-items:center;gap:10px}
+header::after{content:"";position:absolute;left:0;right:0;bottom:-10px;height:10px;
+  background:radial-gradient(circle at 50% 0,#fff 7px,transparent 8px) repeat-x;background-size:18px 10px}
+#back{font-size:34px;color:var(--blue);background:none;border:none;width:28px;visibility:hidden}
+.ttl{flex:1}
+.ttl h1{font-family:Georgia,"Times New Roman",serif;font-size:30px;line-height:1.1}
+.ttl p{color:var(--muted);font-size:16px;margin-top:2px}
+.clk{text-align:right}
+.clk b{font-size:22px;letter-spacing:1px}
+.clk p{color:var(--muted);font-size:13px}
+main{padding:24px 16px}
+.banner{background:var(--blue);color:#fff;border-radius:16px;padding:18px;margin-bottom:16px;line-height:1.5}
+.card{background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:18px 16px;margin-bottom:14px;display:flex;gap:14px}
+.card.free{background:#f8f9fb}
+.card.now{border-color:var(--red);box-shadow:0 0 0 3px rgba(192,57,43,.12)}
+.num{flex:none;width:40px;height:40px;border-radius:50%;background:var(--blue);color:#fff;font-family:Georgia,serif;font-size:20px;display:flex;align-items:center;justify-content:center}
+.free .num{background:#9aa8ba}
+.body{flex:1;min-width:0}
+.period{color:var(--muted);font-weight:600;font-size:16px}
+.badge{display:inline-block;background:var(--red);color:#fff;font-size:12px;padding:2px 8px;border-radius:10px;margin-left:6px;vertical-align:middle}
+.txt{font-size:18px;line-height:1.5;margin:4px 0}
+.meta{font-size:15px;color:var(--muted);margin-top:4px;line-height:1.4}
+.btn{display:inline-block;margin-top:12px;background:var(--blue);color:#fff;border:none;border-radius:10px;padding:11px 16px;font-size:16px;text-align:left;text-decoration:none}
+.btn.wide{display:block;text-align:center}
+.daynav{display:flex;justify-content:space-between;margin-top:8px}
+.daynav button{background:none;border:1.5px solid var(--blue);color:var(--blue);border-radius:10px;padding:10px 14px;font-size:15px}
+.dayitem{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px;display:flex;align-items:center;gap:14px}
+.dayitem.today{border-color:var(--red)}
+.dayitem h3{font-family:Georgia,serif;font-size:19px}
+.dayitem p{color:var(--muted);font-size:14px;margin-top:3px}
+.sec{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px;line-height:1.55;font-size:16px}
+.sec h3{font-family:Georgia,serif;margin-bottom:6px;color:var(--blue)}
+.sec a{color:var(--blue);font-weight:600;text-decoration:none}
+.person{padding:10px 0;border-bottom:1px solid var(--line)}
+.person:last-child{border:none}
+.person small{display:block;color:var(--muted)}
+#aide{position:fixed;left:16px;bottom:calc(env(safe-area-inset-bottom) + 84px);z-index:20;background:#fff;border:3px solid #222;border-radius:30px;padding:10px 20px;font-size:20px;font-weight:700;color:var(--red)}
+nav{position:fixed;bottom:0;left:0;right:0;z-index:15;background:#fff;border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom)}
+nav button{flex:1;background:none;border:none;padding:10px 0 8px;color:var(--muted);font-size:12px;border-top:3px solid transparent}
+nav button span{display:block;font-size:24px;margin-bottom:2px}
+nav button.on{color:var(--blue);font-weight:700;border-top-color:var(--red)}
+#modal{position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.45);display:none;align-items:flex-end}
+#modal.show{display:flex}
+#sheet{background:#fff;width:100%;max-height:85vh;overflow:auto;border-radius:20px 20px 0 0;padding:22px 20px calc(env(safe-area-inset-bottom) + 24px);line-height:1.55;font-size:16px}
+#sheet h2{font-family:Georgia,serif;color:var(--blue);margin-bottom:10px}
+#sheet ol,#sheet ul{padding-left:20px;margin:6px 0}
+#sheet a{color:var(--blue);font-weight:600}
+#sheet a.btn{color:#fff}
+.zh{background:#fff8e6;border:2px dashed #e0a800;border-radius:12px;padding:14px;margin:14px 0;text-align:center}
+.zh small{display:block;color:var(--muted);margin-bottom:4px}
+.zh b{font-size:26px;line-height:1.4}
+.warn{background:#fdecea;border-radius:10px;padding:10px 12px;margin:10px 0;color:#8a2a20}
+.close{width:100%;margin-top:16px;background:var(--blue);color:#fff;border:none;border-radius:12px;padding:13px;font-size:17px}
+</style>
+</head>
+<body>
+
+<header>
+  <button id="back" onclick="go('days')">‹</button>
+  <div class="ttl"><h1 id="h1">Bienvenue</h1><p id="h2"></p></div>
+  <div class="clk"><b id="bj">--:--</b><p>Pékin · Paris <span id="paris">--:--</span></p></div>
+</header>
+
+<main id="main"></main>
+
+<button id="aide" onclick="openAide()">☎ Aide</button>
+
+<nav>
+  <button data-v="today" onclick="go('today')"><span>今</span>Aujourd'hui</button>
+  <button data-v="days" onclick="go('days')"><span>日</span>Jours</button>
+  <button data-v="contacts" onclick="go('contacts')"><span>人</span>Contacts</button>
+  <button data-v="info" onclick="go('info')"><span>要</span>Pratique</button>
+</nav>
+
+<div id="modal" onclick="if(event.target===this)closeM()"><div id="sheet"></div></div>
+
+<script>
+/* ============ 1. 联系人（通过微信联系，不显示电话）============ */
+const PEOPLE = {
+  hui:  {name:`Hui Juan 惠娟`,       role:`Coordinatrice principale`},
+  guo:  {name:`Guo Haoran 郭浩然`,   role:`Accueil aéroport`},
+  yuan: {name:`M. Yuan 袁老师`,    role:``},
+  remy: {name:`Rémy`,                role:`Visites Pékin`},
+  hu:   {name:`Hu Qing 胡庆`,         role:``},
+  li:   {name:`Li Ji 李吉`,           role:``},
+  lym:  {name:`Li Yameng 李亚萌`,     role:``},
+  shi:  {name:`Shi Jingdan 石晶丹`,   role:``},
+  ju:   {name:`Ju Wenjun 鞠文俊`,     role:``},
+  zhy:  {name:`Zhang Haiyue 张海月`,  role:``},
+};
+const AIDE = ['hui','remy','yuan'];   // 「Aide」里优先联系的人
+const ADDR = `北京市海淀区皇后店村6号`;  // 航天城校区地址
+
+/* ============ 2. 日程 ============ */
+const C = `Cours : Management de la marque`;
+const DAYS = [
+ {date:'2026-11-21', sum:`Arrivée à Pékin`, items:[
+   {t:`Fin d'après-midi / soir`, txt:`Transfert aéroport → université en navette, installation, dîner à la cantine de l'université`, place:`Navette de l'université (accueil à l'aéroport)`, who:`Hui Juan, Guo Haoran, Prof. Yuan`, n:'campus'} ]},
+ {date:'2026-11-22', sum:`Journée libre`, items:[
+   {t:`Journée`, txt:`Journée libre`, free:true} ]},
+ {date:'2026-11-23', sum:`Rencontre + cours`, items:[
+   {t:`9h45 – 10h45`, s:'09:45', e:'10:45', txt:`Rencontre entre enseignants et étudiants chinois et étrangers`, place:`Bâtiment d'enseignement n°1 (教一), salle 310`, who:`Zhang Xinyuan, Hu Qing, Li Ji, Zhang Haiyue, Shi Jingdan, Hui Juan`, n:'jiao1'},
+   {t:`13h30 – 16h45`, s:'13:30', e:'16:45', txt:C, place:`教一, salle 308`, who:`Li Yameng`, n:'jiao1'} ]},
+ {date:'2026-11-24', sum:`Cours le matin`, items:[
+   {t:`8h00 – 11h15`, s:'08:00', e:'11:15', txt:C, place:`Bâtiment polyvalent (综合楼), salle 607`, who:`Ju Wenjun`, n:'zonghe'},
+   {t:`Après-midi`, txt:`Après-midi libre`, free:true} ]},
+ {date:'2026-11-25', sum:`Cours + dîner canard laqué`, items:[
+   {t:`9h45 – 11h15`, s:'09:45', e:'11:15', txt:C, place:`综合楼, salle 607`, who:`Hui Juan`, n:'zonghe'},
+   {t:`13h30 – 16h45`, s:'13:30', e:'16:45', txt:C, place:`综合楼, salle 607`, who:`Shi Jingdan`, n:'zonghe'},
+   {t:`Soir`, txt:`Dîner : canard laqué`, place:`Restaurant Da Ya Li (大鸭梨烤鸭)`, who:`Hu Qing, Hui Juan, Rémy, Prof. Yuan`, n:'duck'} ]},
+ {date:'2026-11-26', sum:`Cours l'après-midi`, items:[
+   {t:`Matin`, txt:`Matinée libre`, free:true},
+   {t:`13h30 – 16h45`, s:'13:30', e:'16:45', txt:C, place:`教一, salle 308`, who:`Li Ji`, n:'jiao1'} ]},
+ {date:'2026-11-27', sum:`Cours + Cité interdite + Houhai`, items:[
+   {t:`8h00 – 9h30`, s:'08:00', e:'09:30', txt:C, place:`教一, salle 308`, who:`Hui Juan`, n:'jiao1'},
+   {t:`Après-midi`, txt:`Visite de la Cité interdite. Entrée par la porte du Midi (午门), sortie par la porte du Génie militaire (神武门)`, place:`Taxi + métro lignes 16 et 1`, who:`Rémy`, n:'gugong'},
+   {t:`Soir`, txt:`Tour du Tambour (鼓楼) → lac Houhai (后海)`, place:`Taxi + métro ligne 8`, who:`Rémy`, n:'houhai'} ]},
+ {date:'2026-11-28', sum:`Grande Muraille`, items:[
+   {t:`Journée`, txt:`Excursion à la Grande Muraille`, place:`En taxi`, who:`Hu Qing, Rémy`, n:'wall'} ]},
+ {date:'2026-11-29', sum:`Journée libre · départ`, items:[
+   {t:`Journée`, txt:`Journée libre`, free:true},
+   {t:`Heure à confirmer`, txt:`Départ pour l'aéroport`, place:`Navette de l'université`, who:`Li Yameng`, n:'airport'} ]},
+
+/* ============ 3. Notice 详情（有 zh 字段才显示「请出示给司机」卡片）============ */
+const NOTICES = {
+ campus:{title:`Campus de l'université`, html:`<p>Beijing City University, campus de Hangtiancheng (航天城). Logement sur le campus.</p>
+   <p>📍 Adresse : ${ADDR}</p>`,
+   zh:`北京城市学院（航天城校区）<br>${ADDR}`},
+ jiao1:{title:`Bâtiment n°1 (教一)`, html:`<p>Bâtiment d'enseignement n°1, sur le campus. Un collègue vous accompagnera.</p>`},
+ zonghe:{title:`Bâtiment polyvalent (综合楼)`, html:`<p>Bâtiment polyvalent, salle 607, sur le campus.</p>`},
+ duck:{title:`Canard laqué`, html:`<p>Dîner au restaurant <b>Da Ya Li</b>, spécialité de canard laqué de Pékin. Le canard est découpé à table et se mange roulé dans de fines crêpes avec de la sauce et du concombre.</p>`, zh:`大鸭梨烤鸭店`},
+ gugong:{title:`Cité interdite`, html:`
+   <ol><li>Taxi de l'université jusqu'à la station <b>Yongfeng (永丰)</b>, ligne 16</li>
+   <li>Ligne 16 jusqu'à <b>Muxidi (木樨地)</b>, correspondance ligne 1</li>
+   <li>Ligne 1 jusqu'à <b>Tian'anmen Est (天安门东)</b>, sortie <b>B</b></li>
+   <li>Environ 24 min à pied jusqu'à l'entrée</li></ol>
+   <div class="warn">⚠️ Entrée par la <b>porte du Midi (午门)</b> au sud, sortie par la <b>porte du Génie militaire (神武门)</b> au nord. On ne peut pas entrer par le nord.<br>⚠️ Réservation obligatoire à l'avance, avec le passeport. Apportez votre <b>passeport</b>.</div>`,
+   zh:`请送我到 永丰地铁站`},
+ houhai:{title:`Tour du Tambour & Houhai`, html:`
+   <ol><li>Taxi jusqu'à la station <b>Zhuxinzhuang (朱辛庄)</b></li>
+   <li>Ligne 8 jusqu'à <b>Shichahai (什刹海)</b>, sortie <b>A2</b></li>
+   <li>Tour du Tambour, puis promenade dans les hutongs et autour du lac Houhai</li></ol>`,
+   zh:`请送我到 朱辛庄地铁站`},
+ wall:{title:`Grande Muraille`, html:`<p>Trajet en taxi avec Hu Qing et Rémy. Prévoyez des chaussures de marche, des vêtements chauds (vent, 0–5 °C) et votre <b>passeport</b>.</p>`, zh:`长城（具体段落待定）`},
+ airport:{title:`Départ`, html:`<p>Une navette de l'université vous conduira à l'aéroport. L'heure de départ sera confirmée par Li Yameng. N'oubliez pas votre passeport.</p>`},
+
+/* ============ 以下为程序逻辑，一般无需修改 ============ */
+const TZ='Asia/Shanghai', $=s=>document.querySelector(s);
+let view='today';
+const fmt=(o,tz=TZ)=>new Intl.DateTimeFormat('fr-FR',{...o,timeZone:tz}).format(new Date());
+const bjISO=()=>new Intl.DateTimeFormat('en-CA',{timeZone:TZ}).format(new Date());
+const nowHM=()=>new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',hourCycle:'h23',timeZone:TZ}).format(new Date());
+function frDate(iso){const s=new Intl.DateTimeFormat('fr-FR',{weekday:'long',day:'numeric',month:'long',timeZone:TZ}).format(new Date(iso+'T12:00:00+08:00'));return s[0].toUpperCase()+s.slice(1);}
+function clock(){$('#bj').textContent=fmt({hour:'2-digit',minute:'2-digit'});$('#paris').textContent=fmt({hour:'2-digit',minute:'2-digit'},'Europe/Paris');}
+function head(a,b,back){$('#h1').textContent=a;$('#h2').textContent=b;$('#back').style.visibility=back?'visible':'hidden';}
+const personHTML=p=>`<div class="person">${p.name}${p.role?`<small>${p.role}</small>`:''}</div>`;
+const wechatBtn=`<a class="btn wide" href="weixin://">Ouvrir WeChat</a>`;
+const homeCard=`<div class="zh"><small>Pour rentrer à l'université · 请出示给司机</small><b>请送我回<br>北京城市学院 航天城校区<br>${ADDR}</b></div>`;
+
+function card(it,i,isToday){
+  const now=isToday&&it.s&&nowHM()>=it.s&&nowHM()<it.e;
+  return `<div class="card ${it.free?'free':''} ${now?'now':''}">
+    <div class="num">${i+1}</div><div class="body">
+    <div class="period">${it.t}${now?'<span class="badge">En cours</span>':''}</div>
+    <div class="txt">${it.txt}</div>
+    ${it.place?`<div class="meta">📍 ${it.place}</div>`:''}
+    ${it.who?`<div class="meta">👤 ${it.who}</div>`:''}
+    ${it.n?`<button class="btn" onclick="openNotice('${it.n}')">Notice : ${NOTICES[it.n].title}</button>`:''}
+  </div></div>`;
+}
+function dayHTML(i,back){
+  const d=DAYS[i],isToday=d.date===bjISO();
+  head(`Jour ${i+1}`,frDate(d.date),back);
+  return d.items.map((it,k)=>card(it,k,isToday)).join('')+
+    `<div class="daynav">${i>0?`<button onclick="openDay(${i-1})">‹ Jour ${i}</button>`:'<span></span>'}
+     ${i<DAYS.length-1?`<button onclick="openDay(${i+1})">Jour ${i+2} ›</button>`:''}</div>`;
+}
+function openDay(i){view='day';setNav('days');$('#main').innerHTML=dayHTML(i,true);scrollTo(0,0);}
+function setNav(v){document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));}
+
+function go(v){
+  view=v;setNav(v);scrollTo(0,0);let h='';const today=bjISO();
+  if(v==='today'){
+    const i=DAYS.findIndex(d=>d.date===today);
+    if(i>=0) h=dayHTML(i,false);
+    else if(today<DAYS[0].date){h=`<div class="banner">Bienvenue à Pékin, M. Grossmann !<br>Arrivée prévue le <b>${frDate(DAYS[0].date)}</b>.</div>`+dayHTML(0,false);head('Bienvenue','Programme du séjour',false);}
+    else {head('Merci !','Bon retour en France',false);h=`<div class="banner">Merci pour votre venue à Beijing City University. Bon voyage !</div>`;}
+  }
+  if(v==='days'){head('Programme','21 – 29 novembre',false);
+    h=DAYS.map((d,i)=>`<div class="dayitem ${d.date===today?'today':''}" onclick="openDay(${i})">
+      <div class="num">${i+1}</div><div style="flex:1"><h3>Jour ${i+1} · ${frDate(d.date)}</h3><p>${d.sum}</p></div>
+      ${d.date===today?'<span class="badge">Aujourd\'hui</span>':''}<span style="color:#9aa8ba;font-size:22px">›</span></div>`).join('');}
+  if(v==='contacts'){head('Contacts','Équipe de l\'université',false);
+    h=`<div class="banner">Tous les membres de l'équipe sont dans vos contacts <b>WeChat</b>. N'hésitez pas à leur écrire ou à les appeler via WeChat.</div>
+    <div class="sec">${Object.values(PEOPLE).map(personHTML).join('')}</div>${wechatBtn}`;}
+  if(v==='info'){head('Pratique','Infos utiles',false);
+    h=`<div class="sec"><h3>Retour à l'université</h3>Montrez cette adresse au chauffeur de taxi :${homeCard}</div>
+    <div class="sec"><h3>Urgences en Chine</h3>Police <a href="tel:110">110</a> · Ambulance <a href="tel:120">120</a> · Pompiers <a href="tel:119">119</a></div>
+    <div class="sec"><h3>Décalage horaire</h3>Pékin = Paris + 7 h (heure d'hiver).</div>
+    <div class="sec"><h3>Météo fin novembre</h3>Froid et sec, environ −2 à 10 °C, souvent du vent. Manteau, bonnet et gants conseillés.</div>
+    <div class="sec"><h3>Applications utiles</h3>Alipay / WeChat Pay (acceptent les cartes Visa/Mastercard étrangères), DiDi (taxi, en anglais), Apple Plans fonctionne bien en Chine.</div>
+    <div class="sec"><h3>Internet</h3>Google, Gmail et WhatsApp ne sont pas accessibles via les réseaux chinois (Wi-Fi). Ils fonctionnent avec une carte SIM étrangère en itinérance.</div>
+    <div class="sec"><h3>Passeport</h3>À garder sur vous : il est demandé pour les sites touristiques, les trains et l'hôtel.</div>`;}
+  $('#main').innerHTML=h;
+}
+function modal(html){$('#sheet').innerHTML=html+`<button class="close" onclick="closeM()">Fermer</button>`;$('#modal').classList.add('show');}
+function closeM(){$('#modal').classList.remove('show');}
+function openNotice(k){const n=NOTICES[k];modal(`<h2>${n.title}</h2>${n.html}${n.zh?`<div class="zh"><small>À montrer au chauffeur · 请出示给司机</small><b>${n.zh}</b></div>`:''}`);}
+function openAide(){modal(`<h2>☎ Aide</h2>
+  <p>En cas de problème, contactez via <b>WeChat</b> (message ou appel) :</p>
+  ${AIDE.map(k=>personHTML(PEOPLE[k])).join('')}
+  ${wechatBtn}
+  ${homeCard}
+  <p style="font-size:14px;color:#5b6b80">Urgences : Police <a href="tel:110">110</a> · Ambulance <a href="tel:120">120</a></p>`);}
+
+clock();setInterval(()=>{clock();if(view==='today')go('today');},60000);
+go('today');
+</script>
+</body>
+</html>
