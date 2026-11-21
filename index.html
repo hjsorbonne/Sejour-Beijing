@@ -215,7 +215,7 @@ function vieHTML(){
 
   <div class="sec"><h3>🧺 Laverie 洗衣房</h3>
     ${row(`À l'est de la résidence étudiante n° 8 · 8号学生公寓东侧`,`8:00–22:00`)}
-    Pour faire votre lessive, contactez <b>Guo Haoran 郭浩然</b> (étudiant de 3e année) : ?
+    Pour faire votre lessive, contactez <b>Guo Haoran 郭浩然</b> (étudiant de 3e année)
   </div>
 
   <div class="sec"><h3>Autres infos</h3>
@@ -272,7 +272,7 @@ function go(v){
     <div class="sec">${Object.values(PEOPLE).map(personHTML).join('')}</div>${wechatBtn}`;}
   if(v==='info'){head('Pratique','Infos utiles',false);
     h=`<div class="sec"><h3>Retour à l'université</h3>Montrez cette adresse au chauffeur de taxi :${homeCard}</div>
-    <div class="sec"><h3>🚇 Métro + 🚌 Bus</h3>${metroHTML()}</div>
+    <div class="sec"><h3>🚇 Transport </h3>${metroHTML()}</div>
     ${vieHTML()}
     <div class="sec"><h3>Urgences en Chine</h3>Police <a href="tel:110">110</a> · Ambulance <a href="tel:120">120</a> · Pompiers <a href="tel:119">119</a></div>
     <div class="sec"><h3>Décalage horaire</h3>Pékin = Paris + 7 h (heure d'hiver).</div>
@@ -289,7 +289,7 @@ function openAide(){modal(`<h2>☎ Aide</h2>
   <p>En cas de problème, contactez via <b>WeChat</b> (message ou appel) :</p>
   ${AIDE.map(k=>personHTML(PEOPLE[k])).join('')}
   ${wechatBtn}
-  ${homeCard}<h3 style="margin-top:14px;color:#1f4e8c">🚇 Métro + 🚌 Bus</h3>${metroHTML()}
+  ${homeCard}<h3 style="margin-top:14px;color:#1f4e8c">🚇 Transport</h3>${metroHTML()}
   <p style="font-size:14px;color:#5b6b80">Urgences : Police <a href="tel:110">110</a> · Ambulance <a href="tel:120">120</a></p>`);}
 
 clock();setInterval(()=>{clock();if(view==='today')go('today');},60000);
