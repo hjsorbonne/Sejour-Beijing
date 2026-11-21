@@ -190,6 +190,49 @@ function metroHTML(){
     <div class="warn">💡 Si vous êtes pressé ou si c'est votre première fois, prenez plutôt un taxi depuis la station Yongfeng ou Xi'erqi : c'est le plus simple.</div>
     <div class="zh"><small>Pour demander son chemin · 问路时出示</small><b>请问去皇后店南路站<br>坐几路公交？</b></div>`;
 }
+/* ============ 生活信息 ============ */
+function vieHTML(){
+  const row=(t,s)=>`<div class="person"><b>\({t}</b><small>\){s}</small></div>`;
+  return `
+  <div class="sec"><h3>🍽 Cantine 食堂</h3>
+    Le rez-de-chaussée et le 1er étage sont pour les étudiants, mais les enseignants peuvent aussi y manger.
+    Au 2e étage : un <b>guichet réservé aux enseignants</b> et des plats à la carte.
+    ${row(`Rez-de-chaussée + 1er étage · 一层、二层`,
+      `Petit-déjeuner 6:30–9:00<br>Déjeuner 10:30–13:00<br>Dîner 17:00–19:00`)}
+    ${row(`2e étage · 三层`,
+      `Pas de petit-déjeuner<br>Déjeuner 10:30–13:00<br>Dîner 17:00–18:30<br>Repas du soir 18:30–21:00`)}
+    ${row(`Sous-sol · 负一层`,
+      `🛒 Supermarché Tmall 天猫超市 : 7:00–22:00 (nourriture, eau, lait, produits du quotidien)<br>
+       ☕ Cotti Coffee 库迪咖啡 · 🧋 Mixue 蜜雪冰城 (boissons)<br>
+       Mixue et Oden 关东煮 : 8:00–21:00`)}
+  </div>
+
+  <div class="sec"><h3>🚿 Douches 浴室</h3>
+    ${row(`Dimanche – jeudi`,`17:00–22:00`)}
+    ${row(`Vendredi – samedi`,`19:00–22:00`)}
+    <div class="warn">Pas d'eau chaude en dehors de ces horaires. Pour la douche, insérez votre <b>carte du campus</b> dans l'appareil fixé au mur.</div>
+  </div>
+
+  <div class="sec"><h3>🧺 Laverie 洗衣房</h3>
+    ${row(`À l'est de la résidence étudiante n° 8 · 8号学生公寓东侧`,`8:00–22:00`)}
+    Pour faire votre lessive, contactez <b>Guo Haoran 郭浩然</b> (étudiant de 3e année) : ?
+  </div>
+
+  <div class="sec"><h3>Autres infos</h3>
+    ${row(`🏀 Gymnase 体育馆`,`Gratuit pour les enseignants de 12:00 à 13:00`)}
+    ${row(`☕ Bâtiment d'enseignement n° 1, 2e étage · 教一楼三层`,`Distributeur automatique de café`)}
+    ${row(`🚪 Entrée / sortie du campus`,`Montrez votre carte du campus au gardien.`)}
+    ${row(`🚶 Temps libre`,`Si vous sortez du campus, prévenez-nous, s'il vous plaît.`)}
+  </div>
+
+  <div class="sec"><h3>📶 Wi-Fi du campus 校园网</h3>
+    <ol style="margin-top:6px;padding-left:1.6em">
+      <li>Connectez-vous au réseau <b>bjcsxy</b>.</li>
+      <li>La page de connexion s'ouvre en général automatiquement. Sinon, ouvrez le navigateur et allez sur n'importe quel site, ou tapez <b>wifi.bcu.edu.cn</b> ou <b>192.168.254.31</b>.</li>
+      <li>Entrez l'identifiant et le mot de passe : nous vous les donnerons en personne.</li>
+    </ol>
+  </div>`;
+}
 
 function card(it,i,isToday){
   const now=isToday&&it.s&&nowHM()>=it.s&&nowHM()<it.e;
@@ -230,6 +273,7 @@ function go(v){
   if(v==='info'){head('Pratique','Infos utiles',false);
     h=`<div class="sec"><h3>Retour à l'université</h3>Montrez cette adresse au chauffeur de taxi :${homeCard}</div>
     <div class="sec"><h3>🚇 Métro + 🚌 Bus</h3>${metroHTML()}</div>
+    ${vieHTML()}
     <div class="sec"><h3>Urgences en Chine</h3>Police <a href="tel:110">110</a> · Ambulance <a href="tel:120">120</a> · Pompiers <a href="tel:119">119</a></div>
     <div class="sec"><h3>Décalage horaire</h3>Pékin = Paris + 7 h (heure d'hiver).</div>
     <div class="sec"><h3>Météo fin novembre</h3>Froid et sec, environ −2 à 10 °C, souvent du vent. Manteau, bonnet et gants conseillés.</div>
