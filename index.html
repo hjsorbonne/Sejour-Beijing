@@ -63,6 +63,7 @@ nav button.on{color:var(--blue);font-weight:700;border-top-color:var(--red)}
 .zh b{font-size:26px;line-height:1.4}
 .warn{background:#fdecea;border-radius:10px;padding:10px 12px;margin:10px 0;color:#8a2a20}
 .close{width:100%;margin-top:16px;background:var(--blue);color:#fff;border:none;border-radius:12px;padding:13px;font-size:17px}
+.line{display:inline-block;min-width:26px;padding:1px 6px;border-radius:6px;font-size:13px;font-weight:700;text-align:center}
 </style>
 </head>
 <body>
@@ -103,11 +104,18 @@ const PEOPLE = {
 const AIDE = ['hui','remy','yuan'];   // 「Aide」里优先联系的人
 const ADDR = `北京市海淀区皇后店村6号`;  // 航天城校区地址
 
+/* ============ 地铁 + 公交回校（? 处请按飞书表格填写）============ */
+const METRO = [
+  {line:'16', bg:'#76a32e', fg:'#fff', st:`Yongfeng 永丰 (ligne 16)`,                   exit:`?`, bus:`?`},
+  {line:'13', bg:'#f4da40', fg:'#222', st:`Xi'erqi 西二旗 (ligne 13)`,                   exit:`?`, bus:`?`},
+  {line:'昌', bg:'#de82b2', fg:'#fff', st:`Shengming Kexueyuan 生命科学园 (ligne Changping)`, exit:`?`, bus:`?`},
+];
+
 /* ============ 2. 日程 ============ */
 const C = `Cours : Management de la marque`;
 const DAYS = [
  {date:'2026-11-21', sum:`Arrivée à Pékin`, items:[
-   {t:`Fin d'après-midi / soir`, txt:`Transfert aéroport → université en navette, installation, dîner à la cantine de l'université`, place:`Navette de l'université (accueil à l'aéroport)`, who:`Hui Juan, Guo Haoran, Prof. Yuan`, n:'campus'} ]},
+   {t:`Fin d'après-midi / soir`, txt:`Transfert aéroport → université en navette, installation, dîner à la cantine de l'université`, place:`Navette de l'université (accueil à l'aéroport)`, who:`Hui Juan, Guo Haoran, M. Yuan`, n:'campus'} ]},
  {date:'2026-11-22', sum:`Journée libre`, items:[
    {t:`Journée`, txt:`Journée libre`, free:true} ]},
  {date:'2026-11-23', sum:`Rencontre + cours`, items:[
@@ -119,7 +127,7 @@ const DAYS = [
  {date:'2026-11-25', sum:`Cours + dîner canard laqué`, items:[
    {t:`9h45 – 11h15`, s:'09:45', e:'11:15', txt:C, place:`综合楼, salle 607`, who:`Hui Juan`, n:'zonghe'},
    {t:`13h30 – 16h45`, s:'13:30', e:'16:45', txt:C, place:`综合楼, salle 607`, who:`Shi Jingdan`, n:'zonghe'},
-   {t:`Soir`, txt:`Dîner : canard laqué`, place:`Restaurant Da Ya Li (大鸭梨烤鸭)`, who:`Hu Qing, Hui Juan, Rémy, Prof. Yuan`, n:'duck'} ]},
+   {t:`Soir`, txt:`Dîner : canard laqué`, place:`Restaurant Da Ya Li (大鸭梨烤鸭)`, who:`Hu Qing, Hui Juan, Rémy, M. Yuan`, n:'duck'} ]},
  {date:'2026-11-26', sum:`Cours l'après-midi`, items:[
    {t:`Matin`, txt:`Matinée libre`, free:true},
    {t:`13h30 – 16h45`, s:'13:30', e:'16:45', txt:C, place:`教一, salle 308`, who:`Li Ji`, n:'jiao1'} ]},
@@ -170,6 +178,18 @@ function head(a,b,back){$('#h1').textContent=a;$('#h2').textContent=b;$('#back')
 const personHTML=p=>`<div class="person">${p.name}${p.role?`<small>${p.role}</small>`:''}</div>`;
 const wechatBtn=`<a class="btn wide" href="weixin://">Ouvrir WeChat</a>`;
 const homeCard=`<div class="zh"><small>Pour rentrer à l'université · 请出示给司机</small><b>请送我回<br>北京城市学院 航天城校区<br>${ADDR}</b></div>`;
+function metroHTML(){
+  return METRO.map(m=>`<div class="person">
+      <span class="line" style="background:${m.bg};color:${m.fg}">${m.line}</span> <b>${m.st}</b>
+      <small>Sortie ${m.exit} → bus ${m.bus} → arrêt 皇后店南路 (Huanghoudian Nanlu)</small></div>`).join('')+
+    `<ol style="margin-top:10px">
+      <li>Sortez du métro par la sortie indiquée.</li>
+      <li>Prenez le bus indiqué.</li>
+      <li>Descendez à l'arrêt <b>皇后店南路</b> (Huanghoudian Nanlu).</li>
+      <li>Allez à la <b>Porte Sud</b> de l'université.</li></ol>
+    <div class="warn">💡 Si vous êtes pressé ou si c'est votre première fois, prenez plutôt un taxi depuis la station Yongfeng ou Xi'erqi : c'est le plus simple.</div>
+    <div class="zh"><small>Pour demander son chemin · 问路时出示</small><b>请问去皇后店南路站<br>坐几路公交？</b></div>`;
+}
 
 function card(it,i,isToday){
   const now=isToday&&it.s&&nowHM()>=it.s&&nowHM()<it.e;
@@ -209,6 +229,7 @@ function go(v){
     <div class="sec">${Object.values(PEOPLE).map(personHTML).join('')}</div>${wechatBtn}`;}
   if(v==='info'){head('Pratique','Infos utiles',false);
     h=`<div class="sec"><h3>Retour à l'université</h3>Montrez cette adresse au chauffeur de taxi :${homeCard}</div>
+    <div class="sec"><h3>🚇 Métro + 🚌 Bus</h3>${metroHTML()}</div>
     <div class="sec"><h3>Urgences en Chine</h3>Police <a href="tel:110">110</a> · Ambulance <a href="tel:120">120</a> · Pompiers <a href="tel:119">119</a></div>
     <div class="sec"><h3>Décalage horaire</h3>Pékin = Paris + 7 h (heure d'hiver).</div>
     <div class="sec"><h3>Météo fin novembre</h3>Froid et sec, environ −2 à 10 °C, souvent du vent. Manteau, bonnet et gants conseillés.</div>
@@ -224,7 +245,7 @@ function openAide(){modal(`<h2>☎ Aide</h2>
   <p>En cas de problème, contactez via <b>WeChat</b> (message ou appel) :</p>
   ${AIDE.map(k=>personHTML(PEOPLE[k])).join('')}
   ${wechatBtn}
-  ${homeCard}
+  ${homeCard}<h3 style="margin-top:14px;color:#1f4e8c">🚇 Métro + 🚌 Bus</h3>${metroHTML()}
   <p style="font-size:14px;color:#5b6b80">Urgences : Police <a href="tel:110">110</a> · Ambulance <a href="tel:120">120</a></p>`);}
 
 clock();setInterval(()=>{clock();if(view==='today')go('today');},60000);
