@@ -182,7 +182,7 @@ function metroHTML(){
   return METRO.map(m=>`<div class="person">
       <span class="line" style="background:${m.bg};color:${m.fg}">${m.line}</span> <b>${m.st}</b>
       <small>Sortie ${m.exit} → bus ${m.bus} → arrêt 皇后店南路 (Huanghoudian Nanlu)</small></div>`).join('')+
-    `<ol style="margin-top:10px">
+    `<ol style="margin-top:10px;padding-left:1.6em">
       <li>Sortez du métro par la sortie indiquée.</li>
       <li>Prenez le bus indiqué.</li>
       <li>Descendez à l'arrêt <b>皇后店南路</b> (Huanghoudian Nanlu).</li>
